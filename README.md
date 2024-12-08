@@ -152,6 +152,7 @@ This schema is designed for modular, scalable data management.
 8. Navigate to index page, and start a live server. 
 
 ## Option 2: Running with Docker (Currently Not Functional)
+While each service is functional independently, service-to-service communication has not yet been implemented. 
 1. Clone the repository:
    ```bash
    git clone https://github.com/Sa1ram06/electric-carshare-cnad-asg1-s10259930.git
