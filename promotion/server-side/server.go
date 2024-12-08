@@ -23,10 +23,46 @@ type Promotion struct {
 
 var db *sql.DB
 
-// Initialise the user_svc_db database connection
+/* Initialise the user_svc_db database connection
+func initDB() {
+	// Load environment variables from the .env file
+	err := godotenv.Load("../../.env")
+	if err != nil {
+		fmt.Println(err)
+		log.Fatal("Error loading .env file")
+	}
+
+	// Retrieve the DB host and port from environment variables
+	DB_HOST := os.Getenv("DB_HOST")
+	DB_PORT := os.Getenv("DB_PORT")
+
+	// Ensure that DB_HOST and DB_PORT are not empty
+	if DB_HOST == "" || DB_PORT == "" {
+		log.Fatal("DB_HOST and DB_PORT must be set")
+		return
+	}
+
+	// Format the connection string using user credentials, host, port, and database name
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+		"user",
+		"password",
+		DB_HOST,
+		DB_PORT,
+		"promotion_svc_db",
+	)
+
+	// Open a connection to the database
+	db, err = sql.Open("mysql", dsn)
+	if err != nil {
+		log.Fatal("Failed to open database:", err)
+		return
+	}
+}
+*/
+
 func initDB() {
 	var err error
-	db, err = sql.Open("mysql", "user:password@tcp(127.0.0.1:3306)/promotion_svc_db")
+	db, err = sql.Open("mysql", "user:password@tcp(host.docker.internal:3306)/promotion_svc_db")
 	if err != nil {
 		log.Fatal("Failed to open database:", err)
 		return

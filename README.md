@@ -8,11 +8,12 @@ This project implements a microservices-based Electric Car Sharing System in Go.
 ## Table of Contents
 1. [Overview](#overview)
 2. [System Features](#system-features)
-3. [Design Considerations and Microservices Architecture](#Design Considerations and Microservices Architecture)
-3. [Database Schema](#database-schema)
-4. [Setup Instructions](#setup-instructions)
-5. [Running the Services](#running-the-services)
-6. [Conclusion](#conclusion)
+3. [Design Considerations and Microservices Architecture](#design-considerations-and-microservices-architecture)
+4. [Database Schema](#database-schema)
+5. [Setup Instructions](#setup-instructions)
+6. [Running the Services](#running-the-services)
+7. [Conclusion](#conclusion)
+
 
 ---
 
@@ -93,6 +94,41 @@ Security is implemented at multiple levels in the system:
 The system optimizes performance through the use of database triggers. For example, the `after_billing_insert` trigger automatically updates the invoice status to "Paid" and creates a corresponding receipt entry when a payment is processed. This reduces the need for additional API calls and ensures that data remains consistent and synchronized without additional application logic.
 
 ---
+# Database Schema
+
+This project consists of multiple databases for managing users, vehicles, bookings, promotions, and billing.
+
+---
+
+## Databases and Tables
+
+### **`user_svc_db`**
+- **`memberships`**: Stores membership types (Basic, Premium, VIP) with discounts and booking limits.  
+- **`users`**: Contains user details and links to membership types.
+
+### **`vehicle_svc_db`**
+- **`vehicles`**: Holds vehicle information like type, brand, and hourly rates.  
+- **`schedules`**: Tracks vehicle availability and reservations.  
+- **`bookings`**: Manages bookings, costs, and discounts.
+
+### **`promotion_svc_db`**
+- **`promotion`**: Stores promotional offers and discounts.
+
+### **`billing_svc_db`**
+- **`card`**: Contains payment card details linked to users.  
+- **`invoice`**: Tracks booking invoices, discounts, and payments.  
+- **`billing`**: Logs payment transactions for invoices.
+
+---
+
+## Key Relationships
+- **`users` ↔ `memberships`**: Links users to their membership benefits.  
+- **`vehicles` ↔ `schedules` ↔ `bookings`**: Connects vehicles, schedules, and bookings.  
+- **`billing` ↔ `invoices` ↔ `cards`**: Tracks payments and invoices.
+
+This schema is designed for modular, scalable data management.
+
+---
 
 ## Setup Instructions
 
@@ -106,7 +142,8 @@ The system optimizes performance through the use of database triggers. For examp
     ```bash
     .\run_servers.bat
 4. A series of pop-up windows will appear. Click Allow on all four pop-ups to enable the services to run. This will start all four services required for the application to function.
+---
 
-# Conclusion
+## Conclusion
 
 The Electric Car Sharing System offers a robust and scalable solution for car rentals, ensuring a seamless user experience with enhanced security, performance, and scalability. Through the use of microservices, the system is designed to grow with increasing user demands, while keeping each service independent for easier maintenance. The system focuses on securing user data, providing dynamic pricing models, and ensuring fast, real-time performance, all while maintaining flexibility for future enhancements and expansions.

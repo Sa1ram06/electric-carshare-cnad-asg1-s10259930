@@ -1,0 +1,40 @@
+services:
+  user:
+    build: ./user
+    image: user-svc
+    container_name: user-svc
+    environment:
+      - TZ=UTC
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+
+  vehicle:
+    build: ./vehicle
+    image: vehicle-svc
+    container_name: vehicle-svc
+    environment:
+      - TZ=UTC
+    ports:
+      - 9000:9000
+    restart: unless-stopped
+
+  billing:
+    build: ./billing
+    image: billing-svc
+    container_name: billing-svc
+    environment:
+      - TZ=UTC
+    ports:
+      - 8081:8081
+    restart: unless-stopped
+
+  promotion:
+    build: ./promotion
+    image: promotion-svc
+    container_name: promotion-svc
+    environment:
+      - TZ=UTC
+    ports:
+      - 8080:8080
+    restart: unless-stopped
