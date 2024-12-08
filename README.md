@@ -151,9 +151,11 @@ This schema is designed for modular, scalable data management.
 7. A series of pop-up windows will appear. Click Allow on all four pop-ups to enable the services to run. This will start all four services required for the application to function.
 8. Navigate to index page, and start a live server. 
 
-## Option 2: Running with Docker (Currently Not Functional)
-**While each service is functional independently, service-to-service communication has not yet been implemented.**
-While each service is functional independently, service-to-service communication has not yet been implemented. 
+## Option 2: Running with Docker (Functional for Individual Services)
+
+### **While each service is functional independently, service-to-service communication has not yet been implemented.**
+
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/Sa1ram06/electric-carshare-cnad-asg1-s10259930.git
