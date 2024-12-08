@@ -92,6 +92,8 @@ Security is implemented at multiple levels in the system:
 
 The system optimizes performance through the use of database triggers. For example, the `after_billing_insert` trigger automatically updates the invoice status to "Paid" and creates a corresponding receipt entry when a payment is processed. This reduces the need for additional API calls and ensures that data remains consistent and synchronized without additional application logic.
 
+## Architecture diagram
+![Architecture Diagram](C:\NP_IT\Sem_2.2\CNAD\Assg1\v1\electric-carshare-cnad-asg1-s10259930\images\Microservice.drawio.png)
 ---
 # Database Schema
 
