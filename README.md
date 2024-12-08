@@ -71,7 +71,7 @@ The service manages promotional codes and discount offers. It stores promotion d
 Each service is designed with a clear responsibility, ensuring separation of concerns:
 
 - The **User Service** is responsible for managing user data and authentication (e.g., `users` table).
-- The **Vehicle Service** focuses on vehicle details and reservations (e.g., `vehicles` and `schedules` tables).
+- The **Vehicle Service** focuses on vehicle details and reservations (e.g., `vehicles`,`schedules` and       `booking` tables).
 - The **Billing Service** handles financial transactions and payment-related data (e.g., `invoice`, `billing`, and `receipt` tables).
 - The **Promotion Service** is solely dedicated to managing promotions (e.g., `promotion` table).
 
