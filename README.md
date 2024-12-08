@@ -8,12 +8,11 @@ This project implements a microservices-based Electric Car Sharing System in Go.
 ## Table of Contents
 1. [Overview](#overview)
 2. [System Features](#system-features)
-3. [Design Considerations](#design-considerations)
-4. [Microservices Architecture](#microservices-architecture)
-5. [Database Schema](#database-schema)
-6. [Setup Instructions](#setup-instructions)
-7. [Running the Services](#running-the-services)
-8. [Additional Notes](#additional-notes)
+3. [Design Considerations and Microservices Architecture](#Design Considerations and Microservices Architecture)
+3. [Database Schema](#database-schema)
+4. [Setup Instructions](#setup-instructions)
+5. [Running the Services](#running-the-services)
+6. [Conclusion](#conclusion)
 
 ---
 
@@ -103,5 +102,11 @@ The system optimizes performance through the use of database triggers. For examp
    ```bash
    git clone https://github.com/Sa1ram06/electric-carshare-cnad-asg1-s10259930.git
 2. Navigate to the root folder of the cloned repository.
-3. Run the servers by executing the following command: .\run_servers.bat
+3. Run the servers by executing the following command: 
+    ```bash
+    .\run_servers.bat
 4. A series of pop-up windows will appear. Click Allow on all four pop-ups to enable the services to run. This will start all four services required for the application to function.
+
+# Conclusion
+
+The Electric Car Sharing System offers a robust and scalable solution for car rentals, ensuring a seamless user experience with enhanced security, performance, and scalability. Through the use of microservices, the system is designed to grow with increasing user demands, while keeping each service independent for easier maintenance. The system focuses on securing user data, providing dynamic pricing models, and ensuring fast, real-time performance, all while maintaining flexibility for future enhancements and expansions.
