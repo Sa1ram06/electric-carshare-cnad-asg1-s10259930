@@ -1,1 +1,107 @@
 # electric-carshare-cnad-asg1-s10259930
+# Electric Car Sharing System
+
+This project implements a microservices-based Electric Car Sharing System in Go. It features user management, vehicle reservation, and billing with a focus on scalability, security, and user experience.
+
+---
+
+## Table of Contents
+1. [Overview](#overview)
+2. [System Features](#system-features)
+3. [Design Considerations](#design-considerations)
+4. [Microservices Architecture](#microservices-architecture)
+5. [Database Schema](#database-schema)
+6. [Setup Instructions](#setup-instructions)
+7. [Running the Services](#running-the-services)
+8. [Additional Notes](#additional-notes)
+
+---
+
+## Overview
+
+The Electric Car Sharing System aims to provide a seamless platform for car rentals, incorporating tiered memberships, real-time vehicle availability, and efficient billing. The architecture adopts microservices for scalability, maintainability, and fault tolerance.
+
+---
+
+## System Features
+
+### User Management
+- **Registration & Authentication**: Secure registration and login with email/phone verification.
+- **Membership Tiers**: Basic, Premium, VIP levels with varied benefits such as hourly rates and increased booking limits. 
+- **Profile Management**: Update personal details, view membership status, and rental history.
+
+### Vehicle Reservation System
+- **Real-Time Availability**: Book vehicles for specified time ranges on a specific date(Eg: 21/12/2024
+08.00 to 20.00).
+- **Modification & Cancellation**: Update or cancel bookings per policy. (Eg: Modification or Cancellation of booking is not allowed within 24 hours of rental)
+
+### Billing and Payment Processing
+- **Dynamic Pricing**: Calculate costs based on membership and promo code discounts.
+- **Real-Time Updates**: Provide cost estimates and updates during rentals.
+- **Invoicing**: Auto-generate and email invoices post-rental.
+
+---
+
+## Design Considerations
+
+- **Separation of Concerns**: Each service handles a specific domain (User, Vehicle, Billing).
+- **Scalability**: Designed to handle increasing users and data load with minimal impact.
+- **Security**: Implemented authentication, encrypted storage, and secure API communication.
+- **Performance**: Optimized database queries and caching mechanisms for fast response times.
+
+---
+
+# Design Considerations and Microservices Architecture
+
+## Services Overview
+
+### 1. **User Service** 
+This service is responsible for managing user registration, authentication, and profile management. It handles user data such as `user_id`, `name`, `email`, and `phone`. Additionally, it manages the user's membership, stored in the `users` table, which impacts their benefits (e.g., hourly rate discounts, booking limits) as per the `memberships` table. This service ensures secure user authentication by hashing passwords before storage, providing secure access to the application.
+
+### 2. **Vehicle Service**
+The service manages all vehicle-related information, including vehicle type, brand, model, and availability. It utilizes the `vehicles` table to store details and the `schedules` table to manage vehicle reservations. The service supports scheduling, checking availability, and ensuring that vehicles are reserved based on user demand, which is stored in the `schedules` table along with reservation times and statuses (`is_reserved`).
+
+### 3. **Billing Service**
+This service handles all aspects of pricing, payments, and invoice management. It processes bookings by interacting with the `bookings`, `invoice`, `billing`, and `receipt` tables. When a booking is made, the service generates an invoice, calculates the total amount, and processes payment through the `card` table. It ensures that payments are properly recorded and updates the invoice status to 'Paid' once the transaction is completed. The system also manages discounts (membership and promotional) to adjust the final amount.
+
+### 4. **Promotion Service**
+The service manages promotional codes and discount offers. It stores promotion details in the `promotion` table, including the promo code, discount percentage, and valid dates. This service ensures that active promotions are applied during booking and billing to calculate the final amount, reflecting the correct discount in the `bookings` and `invoice` tables.
+
+## Separation of Concerns
+
+Each service is designed with a clear responsibility, ensuring separation of concerns:
+
+- The **User Service** is responsible for managing user data and authentication (e.g., `users` table).
+- The **Vehicle Service** focuses on vehicle details and reservations (e.g., `vehicles` and `schedules` tables).
+- The **Billing Service** handles financial transactions and payment-related data (e.g., `invoice`, `billing`, and `receipt` tables).
+- The **Promotion Service** is solely dedicated to managing promotions (e.g., `promotion` table).
+
+This separation allows each service to operate independently, improving maintainability, scalability, and ease of updates without affecting other services.
+
+## Scalability
+
+The microservices architecture enables each service to scale independently based on demand. For example, during high demand for vehicle reservations, the **Vehicle Service** can scale to handle more booking requests, while the **Billing Service** can scale during payment processing to manage increased transaction volume. This flexibility ensures the system can handle spikes in activity without overloading any single service, ensuring optimal performance across all services.
+
+## Security
+
+Security is implemented at multiple levels in the system:
+
+- **Authentication**: The **User Service** hashes passwords using secure algorithms (e.g., bcrypt) before storing them in the database. This ensures that even if the database is compromised, user passwords remain secure.
+- **Verification**: The **User Service** uses a **verification code** mechanism to confirm user identity. After registration or certain changes (e.g., email updates), the system sends a verification code to the user, which must be entered to confirm their identity. This ensures that only legitimate users can access their accounts and perform actions, adding an extra layer of security before granting full access.
+
+## Performance
+
+The system optimizes performance through the use of database triggers. For example, the `after_billing_insert` trigger automatically updates the invoice status to "Paid" and creates a corresponding receipt entry when a payment is processed. This reduces the need for additional API calls and ensures that data remains consistent and synchronized without additional application logic.
+
+---
+
+## Setup Instructions
+
+## Installation Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Sa1ram06/electric-carshare-cnad-asg1-s10259930.git
+2. Navigate to the root folder of the cloned repository.
+3. Run the servers by executing the following command: .\run_servers.bat
+4. A series of pop-up windows will appear. Click Allow on all four pop-ups to enable the services to run. This will start all four services required for the application to function.
