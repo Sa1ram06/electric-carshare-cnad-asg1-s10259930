@@ -140,6 +140,7 @@ This schema is designed for modular, scalable data management.
 4. Modify the connection string in each service's Go code to point to your database host. For example:
     ```bash
     db, err = sql.Open("mysql", "user:password@tcp(your-database-host:3306)/promotion_svc_db")
+    ```
     Replace your-database-host with the appropriate database host and port.
 5. Navigate to the root folder of the cloned repository.
 6. Run the servers by executing the following command: 
@@ -157,6 +158,7 @@ This schema is designed for modular, scalable data management.
 4. Modify the connection string in each service's Go code to point to your database host. For example:
     ```bash
     db, err = sql.Open("mysql", "user:password@tcp(your-database-host:3306)/promotion_svc_db")
+    ```
     Replace your-database-host with the appropriate database host and port.
 5. In the root folder of the cloned repository, run the following command to build the Docker containers:
     ```bash
