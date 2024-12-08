@@ -51,7 +51,7 @@ CREATE TABLE receipt (
 INSERT INTO card (card_number, card_expiry, cvv, card_balance, user_id)
 VALUES 
 ('1234567812345678', '12/25', '123', 2000.00, 1), -- Card for John Doe
-('2345678923456789', '11/24', '456', 3000.50, 2), -- Card for Jane Smith
+('2345678923456789', '11/25', '456', 3000.50, 2), -- Card for Jane Smith
 ('3456789034567890', '10/26', '789', 5500.75, 3); -- Card for Alice Johnson
 
 -- Invoice for Booking 1: John Doe

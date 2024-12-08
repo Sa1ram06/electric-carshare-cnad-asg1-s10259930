@@ -1,5 +1,6 @@
 -- Creating Database for users
 CREATE DATABASE user_svc_db;
+
 USE user_svc_db;
 
 -- Attributes of the table (membership_id, hourly_rate_discount, priority_access, booking_limit)
@@ -39,4 +40,3 @@ VALUES
 ('john.doe@example.com', 'John Doe', '98765432', '1990-05-12', '$2a$08$xfW2Yas5NJXl1scqBSLef.Evm8FwrXYmQlZAqqYpoZIFBfYssp5wO', 'Basic', 'SG12345678', '2025-05-12', '123456', TRUE), -- password: p@ssw0rd
 ('jane.smith@example.com', 'Jane Smith', '91234567', '1985-09-23', '$2a$08$ZvJIeHkCQb25vDGtgPR6deL6.L5nSOwQs8.2F0K8qd64Y32DtO5nm', 'Premium', 'SG87654321', '2026-03-15', '654321', TRUE), -- password789
 ('alice.johnson@example.com', 'Alice Johnson', '92345678', '2000-02-18', '$2a$08$Ak5mmhVaLwLmrGd54wCQJOFf3tMG.ViZwe2WUNiHX0Iony2ZF9KnG', 'VIP', 'SG13579246', '2024-12-31', '987654', FALSE); -- password456
-
