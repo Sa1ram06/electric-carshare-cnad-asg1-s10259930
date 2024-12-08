@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Sharing System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arial">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .form-container {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 75%;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 5px #4CAF50;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Car Sharing System</h1>
+    <!-- Buttons to show login and create forms -->
+    <div class="buttons">
+        <button onclick="login()">Login</button>
+        <button onclick="create()">Create</button>
+        <button onclick="verify()">Verify Email</button>
+        <button onclick="forgetPassword()"> Forget Passowrd </button>
+    </div>
+    <!-- Login form -->
+    <div class="form-container" id="loginForm">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Enter your email"><br>
+        <input type="password" id="password" placeholder="Enter your password"><br>
+        <button onclick="submitLogin()">Submit</button>
+    </div>
+    <!-- Create form -->
+    <div class="form-container" id="registerForm">
+        <h2>Register</h2>
+        
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name"><br>
+        
+        <label for="newemail">Email</label>
+        <input type="email" id="newemail" placeholder="Enter your email"><br> 
+    
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" placeholder="Enter your phone number"><br>
+    
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" placeholder="Enter your date of birth"><br>
+    
+        <label for="newpassword">Password</label>
+        <input type="password" id="newpassword" placeholder="Enter your password"><br> 
+    
+        <label for="license_number">License Number</label>
+        <input type="text" id="license_number" placeholder="Enter your license number"><br>
+    
+        <label for="license_expiry">License Expiry Date</label>
+        <input type="date" id="license_expiry" placeholder="Enter your license expiry date"><br>
+    
+        <p>Verification code: <span id="verification_code"></span></p>
+        <button onclick="submitRegister()">Submit</button> 
+    </div>
+    
+    <!-- Verify form -->
+    <div class="form-container" id="verifyForm">
+        <h2>Verify Email</h2>
+        <input type="email" id="verifyemail" placeholder="Enter your email"><br> 
+        <input type="text" id="verify_code" placeholder="Enter your verification code"><br>
+        <button onclick="submitVerify()">Submit</button>
+    </div>
+    <!-- Forget Password form -->
+    <div class="form-container" id="forgetPasswordForm">
+        <h2>Forget Password</h2>
+        <input type="email" id="forgetemail" placeholder="Enter your email"><br>
+        <input type="password" id="forget_password" placeholder="Enter your new password"><br>
+        <button onclick="submitForgetPassword()">Submit</button>
+    </div>
+    <!-- Message to show success or error -->
+    <div id="message" class="message"></div>
+    <script src = "script.js"></script>
+    <script>
+
+        // Function to show login form
+        function login() {
+            // Show login form when Login button is clicked
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('verifyForm').style.display = 'none';
+            document.getElementById('forgetPasswordForm').style.display = 'none';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+        }
+        // Function to show create form
+        function create() {
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('verifyForm').style.display = 'none';
+            document.getElementById('forgetPasswordForm').style.display = 'none';
+            document.getElementById('name').value = '';
+            document.getElementById('newemail').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('dob').value = '';
+            document.getElementById('newpassword').value = '';
+            document.getElementById('license_number').value = '';
+            document.getElementById('license_expiry').value = '';
+            document.getElementById('verification_code').textContent = '';
+        }
+        // Function to show verify form
+        function verify() {
+            document.getElementById('verifyForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('forgetPasswordForm').style.display = 'none';
+            document.getElementById('verifyemail').value = '';
+            document.getElementById('verify_code').value = '';
+        }
+        // Function to show forget password form
+        function forgetPassword() {
+            document.getElementById('forgetPasswordForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('verifyForm').style.display = 'none';
+            document.getElementById('forgetemail').value = '';
+            document.getElementById('forget_password').value = '';
+        }
+        
+        // Function to submit login form
+        async function submitLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Validate fields
+            if (email === "" || password === "") {
+                showMessage("Both fields are required!", "error");
+                return;
+            }
+            // Login data
+            const loginData = {
+                email: email,
+                password: password
+            };
+            // Send login data to the server
+            try {
+                const response = await fetch("http://localhost:8000/api/v1/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(loginData)
+                });
+                const data = await response.json();
+                console.log(data);
+                // Check response status and handle different errors
+                if (response.status === 400) {
+                    showMessage("Invalid login data. Please check your input.", "error");
+                    return;
+                } else if (response.status === 404) {
+                    showMessage("User not found. Please check your email.", "error");
+                    return;
+                } else if (response.status === 403) {
+                    showMessage("Your account is not verified. Please verify your email.", "error");
+                    return;
+                } else if (response.status === 401) {
+                    showMessage("Invalid password. Please try again.", "error");
+                    return;
+                }
+
+                // If login is successful
+                if (response.ok) {
+                    showMessage("Successfully logged in", 'success');
+                    document.getElementById('loginForm').style.display = 'none';
+                    window.location.href = 'home.html';
+                    const userid = data.user_id;
+                    sessionStorage.setItem('userid', userid);
+                } else {
+                    throw new Error('Login failed');
+                }
+            } catch (error) {
+                showMessage(`Error logging in: ${error.message}`, 'error');
+                console.error('Error logging in:', error);
+            }
+        }
+        
+        // Function to submit create form
+        async function submitRegister() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('newemail').value;
+            const phone = document.getElementById('phone').value;
+            const dob = document.getElementById('dob').value;
+            const password = document.getElementById('newpassword').value;
+            const license_number = document.getElementById('license_number').value;
+            const license_expiry = document.getElementById('license_expiry').value;
+
+            // Validate fields
+            if (!name || !email || !phone || !dob || !password || !license_number || !license_expiry) {
+                showMessage("All fields are required!", "error");
+                return;
+            }
+
+            // Validate email
+            if (!email.includes('@') || !email.includes('.')) {
+                showMessage("Invalid email address!", "error");
+                return;
+            }
+
+            // Validate phone number
+            if (phone.length !== 8) {
+                showMessage("Invalid phone number!", "error");
+                return;
+            }
+
+            // Register data
+            const registerData = {
+                name: name,
+                email: email,
+                phone: phone,
+                dob: dob,
+                password: password,
+                license_number: license_number,
+                license_expiry: license_expiry,
+            };
+
+            // Send register data to the server
+            try {
+                const response = await fetch("http://localhost:8000/api/v1/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(registerData)
+                });
+
+                const data = await response.json();
+                console.log(data);
+                // Check if response is successful
+            if (!response.ok) {
+                // Handle different error responses based on message content
+                if (response.status === 400) {
+                    if (data.message.includes("Invalid date format")) {
+                        showMessage("Invalid date format", "error");
+                    } else if (data.message.includes("Invalid or expired license date")) {
+                        showMessage("Invalid or expired license date.", "error");
+                    } 
+                } else if (response.status === 403) {
+                    showMessage("User must be 18 or older.", "error");
+                } else if (response.status === 409){
+                    showMessage("Email or phone number already exists.", "error");
+                } else {
+                    showMessage("An unexpected error occurred. Please try again later.", "error");
+                }
+            } else {
+                // If registration is successful
+                showMessage("User Successfully registered", 'success');
+                const verification_code = data.verification_code;
+                document.getElementById('verification_code').textContent = verification_code;
+            }    
+            } catch (error) {
+                showMessage(`Error registering: ${error.message}`, 'error');
+                console.error('Error registering:', error);
+            }
+        }
+
+        // Function to submit verify form
+        async function submitVerify() {
+            const email = document.getElementById('verifyemail').value;
+            const verification_code = document.getElementById('verify_code').value;
+
+            // Validate fields
+            if (email === "" || verification_code === "") {
+                showMessage("Both fields are required!", "error");
+                return;
+            }
+
+            // Verify data
+            const verifyData = {
+                email: email,
+                verification_code: verification_code
+            };
+            // Send verify data to the server
+            try {
+                const response = await fetch("http://localhost:8000/api/v1/verify", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(verifyData)
+                });
+                const data = await response.json();
+                // If verification is successful
+                if (response.ok) {
+                    showMessage("Successfully verified email", 'success');
+                    document.getElementById('verifyForm').style.display = 'none';
+                    window.location.href = 'home.html';
+                    const userid = data.user_id;
+                    sessionStorage.setItem('userid', userid);
+                } else {
+                    if (response.status === 400) {
+                    showMessage("Invalid verification code. Please check your input.", "error");
+                    return;
+                } else if (response.status === 404) {
+                    showMessage("User not found. Please check your email.", "error");
+                    return;
+                } else if (response.status === 409) { 
+                    showMessage("User is already verified.", "error");
+                    return;
+                } else if (response.status === 401) { 
+                    showMessage("Invalid verification code. Please try again.", "error");
+                    return;
+                }
+                }
+            } catch (error) {
+                showMessage(`Error verifying email: ${error.message}`, 'error');
+                console.error('Error verifying email:', error);
+            }
+        }
+    
+        // Function to submit forget password form
+        async function submitForgetPassword() {
+            const email = document.getElementById('forgetemail').value;
+            const password = document.getElementById('forget_password').value;
+
+            // Validate fields
+            if (email === "" || password === "") {
+                showMessage("Both fields are required!", "error");
+                return;
+            }
+
+            // Forget password data
+            const forgetPasswordData = {
+                email: email,
+                password: password
+            };
+
+            try {
+                const response = await fetch("http://localhost:8000/api/v1/password", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(forgetPasswordData)
+                });
+
+                // Check if the response is successful
+                if (response.ok) {
+                    const data = await response.json();
+                    showMessage("Successfully changed password", "success");
+                    document.getElementById('forgetPasswordForm').style.display = 'none';
+                    login();
+                } else {
+                    // If response is not ok, handle different error statuses
+                    const data = await response.json();
+                    console.log(response.status);
+                    if (response.status === 400) {
+                        if (data.message) {
+                            showMessage(data.message, "error");
+                        } else {
+                            showMessage("Bad request. Please check your input.", "error");
+                        }
+                    } else if (response.status === 404) {
+                        console.log("User not found");
+                        showMessage("User not found. Please check your email.", "error");
+                    } else {
+                        showMessage("An unexpected error occurred. Please try again later.", "error");
+                    }
+                }
+            } catch (error) {
+                // Catch any network or unexpected errors
+                showMessage(`Error changing password: ${error.message}`, 'error');
+                console.error('Error changing password:', error);
+            }
+        }
+
+
+    </script>
+</body>
+</html>

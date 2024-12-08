@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6; 
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 30px;
+            margin-bottom: 30px;    
+            background: linear-gradient(90deg, #4CAF50, #45a049); 
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .home-page {
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .home-page:hover {
+            color: #d4d4d4; 
+        }
+
+        .profile-icon {
+            font-size: 42px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1); 
+        }
+
+        .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .popup {
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        margin: 15px;
+        width: 60%;
+        max-height: 80%; 
+        overflow-y: auto; 
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        text-align: left;
+        animation: slideIn 0.4s ease;
+    }
+
+    
+    .popup::-webkit-scrollbar {
+        width: 8px;
+    }
+    .popup::-webkit-scrollbar-thumb {
+        background-color: #4CAF50;
+        border-radius: 10px;
+    }
+    .popup::-webkit-scrollbar-thumb:hover {
+        background-color: #45a049;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+
+        .popup h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .popup label {
+            font-weight: bold;
+            color: #4CAF50; 
+        }
+
+        .popup p {
+            margin: 8px 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .popup div {
+            margin: 12px 0;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px; 
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .popup input:focus {
+            border-color: #4CAF50; 
+            outline: none;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .popup button:hover {
+            background-color: #45a049;
+            transform: scale(1.05); 
+        }
+
+        .rental-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px; 
+            flex-wrap: wrap; 
+        }
+
+        .rental-buttons button, .rental-item button {
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .rental-buttons button:hover, .rental-item button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+
+        .section-header {
+            font-size: 26px;
+            font-weight: bold;
+            color: #222; 
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-bottom: 2px solid #4CAF50; 
+        }
+
+        .rental-item {
+            background: linear-gradient(135deg, #ffffff, #f9f9f9); 
+            padding: 10px 25px;
+            margin: 15px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            border-left: 6px solid #4CAF50; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .rental-item:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
+        }
+
+        .rental-item p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #444; 
+            margin: 0px;
+            margin-bottom: 10px;
+        }
+
+        .rental-item strong {
+            color: #4CAF50; 
+            font-weight: bold;
+        }
+
+        .rental-error {
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(135deg, #f44336, #d32f2f); 
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .rental-error:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+        }
+
+
+        #search-rentals label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-left: 15px;
+            margin-bottom: 10px;
+        }
+
+        #search-rentals input[type="date"] {
+            width: 100%;
+            max-width: 300px; 
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            margin-left: 15px;
+        }
+
+        #search-rentals button {
+            padding: 10px 20px;
+            background-color: #4CAF50; 
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #search-rentals button:hover {
+            background-color: #45a049;
+        }
+       
+        #cancel-booking-session {
+            margin-left: 15px;
+        }
+
+        .cost-breakdown {
+            text-align: right;
+        }
+
+        .subtotal-line {
+            text-align: right;
+            border: none;
+            border-top: 1px solid #4CAF50;
+            width: 20%;
+            display: inline-block;
+        }
+
+        /* Promo Code Section */
+        .promo-code-section {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .promo-code-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .promo-code-section h4 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        #apply-promo-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        #apply-promo-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        #promo-input-container {
+            margin-top: 15px;
+        }
+
+        #promo-code {
+            width: 100%;
+            max-width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        #promo-code:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        #check-promo, #cancel-promo {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        #check-promo:hover, #cancel-promo:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        #promo-error, #promo-success, #payment-success {
+            margin-top: 10px;
+            color: #fff;
+            background-color: #f44336;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        #promo-success,#payment-success {
+            background-color: #68cf6b;
+        }
+
+        #promo-error p, #promo-success p,  #payment-success p {
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .payment-section h4 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .payment-section label {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .payment-section input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .payment-section input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        #payment-error {
+            font-size: 16px;
+            color: #fff;
+            background-color: #f44336;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1 class="home-page">HomePage</h1>
+        <div class="profile-icon" onclick="togglePopup()">
+            <i class="fas fa-user-circle"></i>
+        </div>
+    </div>
+
+     <!-- Buttons -->
+    <div class="buttons rental-buttons">
+        <button id="searchRentals">Search Rentals</button>
+        <button id="upcomingRentalsBtn">Upcoming Rentals</button>
+        <button id="rentalHistoryBtn">Rental History</button>
+        <button id="promotionCodeBtn">Promo Codes</button>
+        <button id="invoicesBtn">Invoices</button>
+    </div>
+    <!-- Upcoming Rentals -->
+    <div id = "rental-history-section" style ="display: none;">
+        <h2 class="section-header">Rental History</h2>
+        <div id="rental-history"></div>
+    </div>
+    <!-- Upcoming Rentals -->
+    <div id = "upcoming-rentals-section" style ="display: none;">
+        <h2 class="section-header">Upcoming Rentals</h2>
+        <div id="upcoming-rentals"></div>
+    </div>
+    <!-- Search Rentals -->
+    <div id = "search-rentals">
+        <h2 class="section-header">Search Rentals</h2>
+        <label for="search-date">Choose Data:</label>
+        <input type="date" id="search-date">
+        <button onclick=getAvailableVehicles()>Search</button>
+        <div id="search-results"></div>
+    </div>
+    <!-- Promotion Codes -->
+    <div id = "promotion-codes-section" style ="display: none;">
+        <h2 class="section-header">Promo Codes</h2>
+        <div id="promotion-codes"></div>
+    </div>
+    <!-- Invoices -->
+    <div id = "invoices-section" style ="display: none;">
+        <h2 class="section-header">Invoices</h2>
+        <div id="invoices"></div>
+    </div>
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay" onclick="togglePopup()">
+        <div class="popup" onclick="event.stopPropagation()">
+            <h3>Profile Information</h3>
+            <!-- View Mode: Display profile details -->
+            <div id="viewMode" style="display: none;">
+                <div>
+                    <label for="name">Name:</label>
+                    <p id="profileName">John Doe</p>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <p id="profileEmail">john.doe@example.com</p>
+                </div>
+                <div>
+                    <label for="phone">Phone:</label>
+                    <p id="profilePhone">(123) 456-7890</p>
+                </div>
+                <div>
+                    <label for="dob">Date of Birth:</label>
+                    <p id="profileDob">01/01/1990</p>
+                </div>
+                <div>
+                    <label for="licenseNumber">License Number:</label>
+                    <p id="profileLicenseNumber">AB123456</p>
+                </div>
+                <div>
+                    <label for="licenseExpiry">License Expiry:</label>
+                    <p id="profileLicenseExpiry">12/12/2025</p>
+                </div>
+                <div>
+                    <label for="membership">Membership:</label>
+                    <p id="profileMembership">Gold Member</p>
+                </div>
+                <div>
+                    <button onclick="closePopup()">Close</button>
+                    <button onclick="showEditMode()">Edit</button>
+                </div>
+            </div>
+    
+            <!-- Edit Mode: Allow user to edit profile details -->
+            <div id="editMode" style="display: none;">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="editName" value="John Doe"><br>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="editEmail" value="john.doe@example.com">
+                </div>
+                <div>
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="editPhone" value="(123) 456-7890">
+                </div>
+                <div>
+                    <label for="licenseNumber">License Number:</label>
+                    <input type="text" id="editLicenseNumber" value="AB123456">
+                </div>
+                <div>
+                    <label for="licenseExpiry">License Expiry:</label>
+                    <input type="date" id="editLicenseExpiry" value="12/12/2025">
+                </div>
+                <div>
+                    <label for="membership_id">Choose membership:</label>
+                    <select id="membership_id">
+                        <option value="Basic">Basic</option>
+                        <option value="Premium">Premium</option>
+                        <option value="VIP">VIP</option>
+                    </select><br> 
+                </div>
+                <p id="verification_code_container" style="display: none;">
+                    Verification code: <span id="verification_code"></span>
+                    <button id="dismiss_button">Dismiss</button>
+                </p>                
+                <div>
+                    <button id="saveButton" onclick="saveChanges()">Save</button>
+                    <button onclick="closePopup()">Close</button>
+                </div>
+                <!-- Message to show success or error -->
+                <div id="message" class="message"></div>
+            </div>
+    
+            <!-- Initial View and Edit buttons -->
+            <div id="viewEditButtons">
+                <button id="viewButton" onclick="showViewMode()">View</button>
+                <button id="editButton" onclick="showEditMode()">Edit</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Selected Booking-->
+    <div id="selected-booking-section" style="display: none;">
+        <h2 class="section-header">Selected Booking</h2>
+        <div id="selected-booking" class="rental-item">
+            <p><strong>Schedule Date: </strong><span id="schedule-date"></span></p>
+            <p><strong>Start Time: </strong><span id="start-time"></span></p>
+            <p><strong>End Time: </strong><span id="end-time"></span></p>
+            <p><strong>Vehicle Type: </strong><span id="vehicle-type"></span></p>  
+            <p><strong>Vehicle Brand: </strong><span id="vehicle-brand"></span></p>  
+            <p><strong>Vehicle Model: </strong><span id="vehicle-model"></span></p>
+            <p><strong>License Plate: </strong><span id="license-plate"></span></p>
+            <p><strong>Hourly Rate: </strong><span id="hourly-rate"></span></p>
+            <hr>
+            <div class="cost-breakdown">
+                <p><strong>Total (Without Discount): </strong><span id="total-without-discount"></span></p>
+            </div>
+            <button id="confirm-vehicle" class="rental-buttons">Confirm Rental</button>
+        </div>
+    </div>
+
+    <!-- Selected Booking Pop Up -->
+    <div class="popup-overlay" id="create-booking-popupOverlay">
+        <div class="popup">
+            <h3>Confirm Booking</h3>
+            <div class="rental-item">
+                <p><strong>Schedule Date: </strong><span id="booked-schedule-date"></span></p>
+                <p><strong>Start Time: </strong><span id="booked-start-time"></span></p>
+                <p><strong>End Time: </strong><span id="booked-end-time"></span></p>
+                <hr>
+                <div class = "promo-code-section">
+                    <h4>Apply for Promo</h4>
+                    <button id="apply-promo-btn">Apply Promo Code</button>
+                    <div id="promo-input-container" style="display: none;">
+                        <input type="text" id="promo-code" placeholder="Enter promo code">
+                        <button id="check-promo"onclick="validatePromoCode()">Check</button>
+                        <button id="cancel-promo">Cancel</button>
+                        <div id="promo-error" class="rental-error" style="display: none;">
+                            <p id="promo-error-message"></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="promo-success" style="display: none;">
+                    <p id="promo-success-message"></p>
+                </div>
+                <div class="cost-breakdown">
+                    <p><strong>Total (Without Discount): </strong><span id="total-without-discount-booking"></span></p>
+                    <p><strong>Membership Discount: </strong><span id="membership-discount"></span></p>
+                    <p><strong>Promotion Discount: </strong><span id="promotion-discount"></span></p>
+                    <p><strong>Overall Discount: </strong><span id="overall-discount"></span></p>
+                    <hr class="subtotal-line">
+                    <p><strong>Subtotal: </strong><span id="subtotal"></span></p>
+                </div>
+            </div>
+            <div>
+                <button id="make-invoice">Make Invoice</button>
+                <button id="cancel-booking-session">Cancel Booking Session</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Make Payment Popuo -->
+     <div class = 'popup-overlay' id = 'payment-popupOverlay'>
+        <div class = 'popup'>
+            <h3>Make Payment</h3>
+            <div class="rental-item">
+                <p><strong>Total (Without Discount): </strong><span id="payment-total-wthout-discount"></span></p>
+                <p><strong>Overall Discount: </strong><span id="payment-overall-discount"></span></p>
+                <hr class="subtotal-line">
+                <p><strong>Subtotal: </strong><span id="payment-subtotal"></span></p>
+            </div>
+            <!-- Payment Section -->
+            <div class="payment-section">
+                <h4>Payment Information</h4>
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="Enter Card Number">
+                
+                <label for="card-expiry">Expiry Date</label>
+                <input type="text" id="card-expiry" placeholder="Enter Card Expiry Date">
+                
+                <label for="card-cvv">CVV</label>
+                <input type="text" id="card-cvv" placeholder="Enter CVV">
+                
+                <div id="payment-error" class="rental-error" style="display: none;">
+                    <p id="payment-error-message"></p>
+                </div>
+                <div id="payment-success" style="display: none;">
+                    <p id="payment-success-message"></p>
+                </div>
+            </div>
+            <div>
+                <button id="confirm-payment">Confirm Payement</button>
+                <button id="cancel-payment">Cancel Payment</button>
+            </div>
+        </div>
+    </div>
+    
+    <!--receipt Popup-->
+    <div class="popup-overlay" id="receipt-popupOverlay">
+        <div class="popup">
+            <h3>Receipt</h3>
+            <div class="rental-item">
+                <p><strong>Receipt ID: </strong><span id="receipt-id"></span></p>
+                <p><strong>Billing ID: </strong><span id="receipt-billing-id"></span></p>
+                <p><strong>Amount: </strong><span id="receipt-amount"></span></p>
+                <p><strong>Transaction Date: </strong><span id="receipt-date"></span></p>
+                <p><strong>Payment Description: </strong><span id="receipt-description"></span></p>
+                <p><strong>Payemnt Method: </strong><span id="receipt-card"></span></p>
+
+            </div>
+            <button id="close-receipt">Close</button>
+        </div>
+    </div>
+
+    <!-- Update Booking Popup -->
+    <div class="popup-overlay" id="update-booking-popupOverlay">
+        <div class="popup">
+            <h3>Update Booking</h3>
+            <div id = "update-booking-section"> </div>
+            <button id="close-update-booking">Close</button>
+        </div>
+    </div>
+    
+
+    
+    <script src = "script.js"></script>
+    <script>
+        // Get the session email
+        const user_id= sessionStorage.getItem('userid');
+        const dateInput = document.getElementById('search-date');
+
+        // Get today's date in YYYY-MM-DD format
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const minDate = `${yyyy}-${mm}-${dd}`;
+
+        // Set the min attribute to today's date
+        dateInput.min = minDate;
+
+        // Function to toggle the popup
+        function togglePopup() {
+            var popupOverlay = document.getElementById("popupOverlay");
+            if (popupOverlay.style.display === "flex") {
+                popupOverlay.style.display = "none";
+                document.getElementById("viewMode").style.display = "none";
+                document.getElementById("editMode").style.display = "none";
+                document.getElementById("viewEditButtons").style.display = "block";
+            } else {
+                popupOverlay.style.display = "flex";
+                getUserDetail();
+            }
+        }
+    
+        // Function to close the popup
+        function closePopup() {
+            var popupOverlay = document.getElementById("popupOverlay");
+            popupOverlay.style.display = "none";
+            document.getElementById("viewMode").style.display = "none";
+            document.getElementById("editMode").style.display = "none";
+            document.getElementById("viewEditButtons").style.display = "block";
+        }
+    
+        // Function to show the view mode
+        function showViewMode() {
+            var viewMode = document.getElementById("viewMode").style.display = "block";
+            var editMode = document.getElementById("editMode").style.display = "none";
+            var viewEditButtons = document.getElementById("viewEditButtons").style.display = "none";
+        }
+    
+        // Function to show the edit mode
+        function showEditMode() {
+            var viewMode = document.getElementById("viewMode").style.display = "none";
+            var editMode = document.getElementById("editMode").style.display = "block";
+            var viewEditButtons = document.getElementById("viewEditButtons").style.display = "none";
+            prefillData();
+        }
+        
+        // Function to get the profile details
+        async function getUserDetail() {
+            try {
+                const response = await fetch(`http://localhost:8000/api/v1/user/${user_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Check if the response is successful
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        alert('User not found');
+                    } else {
+                        throw new Error('Failed to fetch user details');
+                    }
+                    throw new Error('Failed to fetch user details');
+                }
+
+                // Parse the response body as JSON
+                const data = await response.json();
+
+                document.getElementById('profileName').textContent = data.name;
+                document.getElementById('profileEmail').textContent = data.email;
+                document.getElementById('profilePhone').textContent = data.phone;
+                document.getElementById('profileDob').textContent = data.dob;
+                document.getElementById('profileLicenseNumber').textContent = data.license_number;
+                document.getElementById('profileLicenseExpiry').textContent = data.license_expiry;
+                document.getElementById('profileMembership').textContent = data.membership_id;
+            } catch (error) {
+                alert(`Error fetching user details: ${error.message}`);
+                console.error("Error fetching user details:", error);
+            }
+        }
+
+        // Funtion prefill data in edit mode
+        function prefillData() {
+            document.getElementById('editName').value = document.getElementById('profileName').textContent;
+            document.getElementById('editEmail').value = document.getElementById('profileEmail').textContent;
+            document.getElementById('editPhone').value = document.getElementById('profilePhone').textContent;
+            document.getElementById('editLicenseNumber').value = document.getElementById('profileLicenseNumber').textContent;
+            document.getElementById('editLicenseExpiry').value = document.getElementById('profileLicenseExpiry').textContent;
+            document.getElementById('membership_id').value = document.getElementById('profileMembership').textContent;
+            loadOriginalValues();
+        }
+         //Check the detaails are not teh same as prefilled
+         let originalUserData = {};
+
+        function loadOriginalValues() {
+            originalUserData = {
+                name: document.getElementById('editName').value,
+                email: document.getElementById('editEmail').value,
+                phone: document.getElementById('editPhone').value,
+                licenseNumber: document.getElementById('editLicenseNumber').value,
+                licenseExpiry: document.getElementById('editLicenseExpiry').value,
+                membershipId: document.getElementById('membership_id').value,
+            };
+        }
+
+        // Function to update the profile details
+        async function saveChanges() {
+            const name = document.getElementById('editName').value;
+            const email = document.getElementById('editEmail').value;
+            const phone = document.getElementById('editPhone').value;
+            const licenseNumber = document.getElementById('editLicenseNumber').value;
+            const licenseExpiry = document.getElementById('editLicenseExpiry').value;
+            const membershipId = document.getElementById('membership_id').value;
+
+            // Check if any value has changed
+            if (
+                name === originalUserData.name &&
+                email === originalUserData.email &&
+                phone === originalUserData.phone &&
+                licenseNumber === originalUserData.licenseNumber &&
+                licenseExpiry === originalUserData.licenseExpiry &&
+                membershipId === originalUserData.membershipId
+            ) {
+                showMessage("You must make changes before clicking Save.", "error");
+                return;
+            }
+            // Check if email and phone is valid
+            // Validate email
+            if (!email.includes('@') || !email.includes('.')) {
+                showMessage("Invalid email address!", "error");
+                return;
+            }
+
+            // Validate phone number
+            if (phone.length !== 8) {
+                showMessage("Invalid phone number!", "error");
+                return;
+            }
+
+            const data = {
+                name: name,
+                email: email,
+                phone: phone,
+                license_number: licenseNumber,
+                license_expiry: licenseExpiry,
+                membership_id: membershipId,
+            };
+
+            try {
+                const response = await fetch(`http://localhost:8000/api/v1/user/${user_id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                const responseData = await response.json();
+                if (!response.ok) {
+                    if (response.status === 400) {
+                        if (responseData.message.includes("User not found")) {
+                            showMessage("User not found.", "error");
+                        } else if (responseData.message.includes("Invalid or expired license date")) {
+                            showMessage("Invalid or expired license date.", "error");
+                        } else {
+                            showMessage(responseData.message, "error");
+                        }
+                    } else {
+                        throw new Error(responseData.message || "Failed to update user details.");
+                    }
+                    return;
+                } else {
+                    showMessage("User successfully updated", "success");
+                     // Check if a verification code exists and populate the p tag
+                    if (responseData.verification_code) {
+                       // Get the <p> element and make it visible
+                        const verificationCodeContainer = document.getElementById('verification_code_container');
+                        verificationCodeContainer.style.display = 'block';
+
+                        // Set the verification code text
+                        const verificationCodeElement = document.getElementById('verification_code');
+                        verificationCodeElement.textContent = responseData.verification_code;
+
+                        // Add a click event to the dismiss button
+                        const dismissButton = document.getElementById('dismiss_button');
+                        dismissButton.addEventListener('click', () => {
+                            verificationCodeContainer.style.display = 'none';
+                            window.location.href = 'index.html'; // Redirect after dismissal
+                        });
+                    } else { setTimeout(() => {
+                        getUserDetail();
+                        showViewMode();
+                    }, 3000);
+                }
+            }
+            } catch (error) {
+                alert(`Error updating user details: ${error.message}`);
+                console.error("Error updating user details:", error);
+            }
+        }
+
+         // JavaScript to handle button clicks
+        document.getElementById('rentalHistoryBtn').addEventListener('click', function() {
+            // Show the Rental History section
+            document.getElementById('rental-history-section').style.display = 'block';
+            document.getElementById('selected-booking-section').style.display = 'none';
+            document.getElementById('upcoming-rentals-section').style.display = 'none';
+            document.getElementById('search-rentals').style.display = 'none';
+            document.getElementById('promotion-codes-section').style.display = 'none';
+            document.getElementById('invoices-section').style.display = 'none';
+            const rentalHistory = document.getElementById('rental-history');
+            rentalHistory.innerHTML = ''; // Clear existing content
+            getRentalHistory();
+        });
+
+        document.getElementById('upcomingRentalsBtn').addEventListener('click', function() {
+            // Show the Upcoming Rentals section
+            document.getElementById('upcoming-rentals-section').style.display = 'block';
+            document.getElementById('rental-history-section').style.display = 'none';
+            document.getElementById('selected-booking-section').style.display = 'none';
+            document.getElementById('search-rentals').style.display = 'none';
+            document.getElementById('promotion-codes-section').style.display = 'none';
+            document.getElementById('invoices-section').style.display = 'none';
+            const upcomingRentals = document.getElementById('upcoming-rentals');
+            upcomingRentals.innerHTML = ''; // Clear existing content
+            getUpcomingRentals();
+        });
+
+        document.getElementById('searchRentals').addEventListener('click', function() {
+            document.getElementById('selected-booking-section').style.display = 'none';
+            document.getElementById('search-rentals').style.display = 'block';
+            document.getElementById('rental-history-section').style.display = 'none';
+            document.getElementById('upcoming-rentals-section').style.display = 'none';
+            document.getElementById('promotion-codes-section').style.display = 'none';
+            document.getElementById('invoices-section').style.display = 'none';
+            const searchRental = document.getElementById('search-results');
+            searchRental.innerHTML = ''; // Clear existing content
+            document.getElementById('search-date').value = ''
+        });
+        
+        document.getElementById('promotionCodeBtn').addEventListener('click', function() {
+            // Show the Promotion Codes section
+            document.getElementById('promotion-codes-section').style.display = 'block';
+            document.getElementById('rental-history-section').style.display = 'none';
+            document.getElementById('upcoming-rentals-section').style.display = 'none';
+            document.getElementById('search-rentals').style.display = 'none';
+            document.getElementById('selected-booking-section').style.display = 'none';
+            document.getElementById('invoices-section').style.display = 'none';
+            const promotionCodes = document.getElementById('promotion-codes');
+            promotionCodes.innerHTML = ''; // Clear existing content
+            getPromotionCodes();
+        });
+        
+        document.getElementById('invoicesBtn').addEventListener('click', function() {
+            // Show the Invoices section
+            document.getElementById('invoices-section').style.display = 'block';
+            document.getElementById('rental-history-section').style.display = 'none';
+            document.getElementById('upcoming-rentals-section').style.display = 'none';
+            document.getElementById('search-rentals').style.display = 'none';
+            document.getElementById('selected-booking-section').style.display = 'none';
+            document.getElementById('promotion-codes-section').style.display = 'none';
+            const invoices = document.getElementById('invoices');
+            invoices.innerHTML = ''; // Clear existing content
+            getInvoices();
+        });
+        
+        document.getElementById('apply-promo-btn').addEventListener('click', function() {
+        document.getElementById('promo-success').style.display = 'none';
+        document.getElementById('promo-error').style.display = 'none';
+        const promoInputContainer = document.getElementById('promo-input-container');
+        promoInputContainer.style.display = (promoInputContainer.style.display === 'none') ? 'block' : 'none';
+    });
+
+        document.getElementById('cancel-promo').addEventListener('click', function() {
+        const promoInputContainer = document.getElementById('promo-input-container');
+        promoInputContainer.style.display = 'none';
+    });
+        
+        document.getElementById('cancel-payment').addEventListener('click', function() {
+            const paymentPopupOverlay = document.getElementById('payment-popupOverlay');
+            paymentPopupOverlay.style.display = 'none';
+        });
+        
+        document.getElementById('close-receipt').addEventListener('click', function() {
+            const receiptPopupOverlay = document.getElementById('receipt-popupOverlay');
+            receiptPopupOverlay.style.display = 'none';
+            document.getElementById('upcomingRentalsBtn').click();
+        });
+        
+        document.getElementById('confirm-payment').addEventListener('click', async function () {
+            var invoice_id = sessionStorage.getItem('invoice_id');
+            makePayment(invoice_id);
+        });
+
+        document.getElementById('close-update-booking').addEventListener('click', function() {
+            const updateBookingPopupOverlay = document.getElementById('update-booking-popupOverlay');
+            updateBookingPopupOverlay.style.display = 'none';
+        });
+        
+        // Function to get rental history
+        async function getRentalHistory() {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/rental-history/${user_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Get the vehicles array from the response
+                const vehicles = data.vehicles || [];
+
+                // Get the rental history container element
+                const rentalHistory = document.getElementById('rental-history');
+                rentalHistory.innerHTML = ''; // Clear existing content
+
+                // If no vehicles are found, show a message
+                if (vehicles == null || vehicles.length === 0) {
+                    rentalHistory.innerHTML = '<p class="rental-error">No rental history found.</p>';
+                    return;
+                }
+
+                // Loop through the vehicles array and display each rental item
+                vehicles.forEach(rental => {
+                    console.log(rental);
+                    const rentalElement = document.createElement('div');
+                    rentalElement.classList.add('rental-item');
+                    rentalElement.innerHTML = `
+                        <p><strong>Booking ID:</strong> ${rental.booking_id}</p>
+                        <p><strong>Schedule Date:</strong> ${rental.date}</p>
+                        <p><strong>Start Time:</strong> ${rental.start_time}</p>
+                        <p><strong>End Time:</strong> ${rental.end_time}</p>
+                        <p><strong>Vehicle Type:</strong> ${rental.type}</p>  
+                        <p><strong>Vehicle Brand:</strong> ${rental.brand}</p>  
+                        <p><strong>Vehicle Model:</strong> ${rental.model}</p>
+                        <p><strong>License Plate:</strong> ${rental.license_plate}</p>
+                        <p><strong>Status:</strong> ${rental.status}</p>
+                    `;
+                    rentalHistory.appendChild(rentalElement);
+                });
+            } catch (error) {
+                alert(`Error fetching rental history: ${error.message}`);
+                console.error("Error fetching rental history:", error);
+            }
+            }
+        // Function to get available vehciles
+        async function getAvailableVehicles() {
+            const date = document.getElementById('search-date').value;
+            if (!date) {
+                alert('Please select a date');
+                return;
+            }
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/vehicles/${date}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Get the vehicles array from the response
+                const vehicles = data.vehicles || [];
+
+                // Get the rental history container element
+                const searchRental = document.getElementById('search-results');
+                searchRental.innerHTML = ''; // Clear existing content
+
+                
+                // If no vehicles are found, show a message
+                if (vehicles == null || vehicles.length === 0) {
+                    searchRental.innerHTML = '<p class="rental-error">No vehicles available for this date.</p>';
+                    return;
+                }
+                // Loop through the vehicles array and display each rental item
+                vehicles.forEach(rental => {
+                    const rentalElement = document.createElement('div');
+                    rentalElement.classList.add('rental-item');
+                    rentalElement.innerHTML = `
+                        <p><strong>Vehicle ID:</strong> ${rental.vehicle_id}</p>
+                        <p><strong>Schedule Date:</strong> ${rental.date}</p>
+                        <p><strong>Start Time:</strong> ${rental.start_time}</p>
+                        <p><strong>End Time:</strong> ${rental.end_time}</p>
+                        <p><strong>Vehicle Type:</strong> ${rental.type}</p>  
+                        <p><strong>Vehicle Brand:</strong> ${rental.brand}</p>  
+                        <p><strong>Vehicle Model:</strong> ${rental.model}</p>
+                        <p><strong>License Plate:</strong> ${rental.license_plate}</p>
+                        <p><strong>Hourly Rate:</strong> $${rental.hourly_rate}/hr</p>
+                        <button id="rental-${rental.schedule_id}" class="rental-buttons" onclick="getSelectedVehicle(${rental.schedule_id})">Select Rental</button>
+                    `;
+                    searchRental.appendChild(rentalElement);
+                });
+            } catch (error) {
+                alert(`Error fetching rental history: ${error.message}`);
+                console.error("Error fetching rental history:", error);
+            }
+        }
+        // Function to get upcoming rentals
+        async function getUpcomingRentals() {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/upcoming-rentals/${user_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Get the vehicles array from the response
+                const vehicles = data.vehicles || [];
+
+                // Get the rental history container element
+                const upcomingRentals = document.getElementById('upcoming-rentals');
+                upcomingRentals.innerHTML = ''; // Clear existing content
+
+                // If no vehicles are found, show a message
+                if (vehicles == null || vehicles.length === 0) {
+                    upcomingRentals.innerHTML = '<p class="rental-error">No upcoming rentals found.</p>';
+                    return;
+                }
+
+                // Loop through the vehicles array and display each rental item
+                vehicles.forEach(rental => {
+                    const rentalElement = document.createElement('div');
+                    rentalElement.classList.add('rental-item');
+                    rentalElement.innerHTML = `
+                        <p><strong>Booking ID:</strong> ${rental.booking_id}</p>
+                        <p><strong>Schedule Date:</strong> ${rental.date}</p>
+                        <p><strong>Start Time:</strong> ${rental.start_time}</p>
+                        <p><strong>End Time:</strong> ${rental.end_time}</p>
+                        <p><strong>Vehicle Type:</strong> ${rental.type}</p>  
+                        <p><strong>Vehicle Brand:</strong> ${rental.brand}</p>  
+                        <p><strong>Vehicle Model:</strong> ${rental.model}</p>
+                        <p><strong>License Plate:</strong> ${rental.license_plate}</p>
+                        <p><strong>Status:</strong> ${rental.status}</p>
+                        <button id="rental-modify-${rental.booking_id}" onclick="getVehicleDetails(${rental.hourly_rate})"class="rental-buttons">Modify Rental</button>
+                        <button id="rental-delete-${rental.booking_id}" onclick="deleteBooking(${rental.booking_id})" class="rental-buttons">Delete Rental</button>
+                    `;
+                    upcomingRentals.appendChild(rentalElement);
+
+                    // Add click event listener for the modify button
+                    const modifyButton = document.getElementById(`rental-modify-${rental.booking_id}`);
+                    modifyButton.addEventListener('click', (event) => {
+                        const buttonId = event.target.id; // Get the button ID
+                        const bookingId = buttonId.split('-')[2]; // Extract the bookingId
+                        sessionStorage.setItem('booking_id', bookingId);
+                        console.log("Booking Id clicked" + sessionStorage.getItem('booking_id'));
+                    });
+                });
+            } catch (error) {
+                alert(`Error fetching upcoming rentals: ${error.message}`);
+                console.error("Error fetching upcoming rentals:", error);
+            }
+        }
+        // Function get selected booking
+        async function getSelectedVehicle(scheduleId) {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/vehicle/${scheduleId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Get the rental history container element
+                document.getElementById('search-rentals').style.display = 'none';
+                document.getElementById('selected-booking-section').style.display = 'block';
+                const selectedBooking = document.getElementById('selected-booking') // Clear existing content
+                // Get the vehicles array from the response
+                const rental = data.vehicle || {};
+
+                // If no vehicles are found, show a message
+                if (rental == null) {
+                    selectedBooking.innerHTML = '<p class="rental-error">No booking found.</p>';
+                    return;
+                }
+
+        
+                document.getElementById('schedule-date').textContent = rental.date;
+                document.getElementById('start-time').textContent = rental.start_time;
+                document.getElementById('end-time').textContent = rental.end_time;
+                document.getElementById('vehicle-type').textContent = rental.type;
+                document.getElementById('vehicle-brand').textContent = rental.brand;
+                document.getElementById('vehicle-model').textContent = rental.model;
+                document.getElementById('license-plate').textContent = rental.license_plate;
+                document.getElementById('hourly-rate').textContent = `$${rental.hourly_rate}/hr`;
+                document.getElementById('total-without-discount').textContent = `$${rental.base_cost}`;
+                 // Get the confirm-vehicle button
+                const confirmVehicleButton = document.getElementById('confirm-vehicle');
+
+                // Remove any previously attached event listeners
+                const newConfirmButton = confirmVehicleButton.cloneNode(true);
+                confirmVehicleButton.replaceWith(newConfirmButton);
+
+                // Attach a new event listener to the button
+                newConfirmButton.addEventListener('click', () => {
+                    createBookingSession(rental.schedule_id);
+                });
+
+
+
+            } catch (error) {
+                alert(`Error fetching selected booking: ${error.message}`);
+                console.error("Error fetching selected booking:", error);
+            }
+        }
+        // Function to create booking session
+        async function createBookingSession(scheduleId) {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/create-booking-session/${user_id}/${scheduleId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+                console.log(data);
+
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                const rental = data.booking || {};
+                if (data.message.includes("Booking session created successfully")) {
+                    const popupOverlay = document.getElementById("create-booking-popupOverlay");
+                    const popup = popupOverlay.querySelector('.popup');
+                    popupOverlay.style.display = "flex";
+                    popup.scrollTop = 0;
+
+                    document.getElementById('booked-schedule-date').textContent = rental.date;
+                    document.getElementById('booked-start-time').textContent = rental.start_time;
+                    document.getElementById('booked-end-time').textContent = rental.end_time;
+                    document.getElementById('total-without-discount-booking').textContent = `$${rental.base_cost}`;
+                    document.getElementById('membership-discount').textContent = `$${rental.membership_discount}`;
+                    document.getElementById('promotion-discount').textContent = `$${rental.promotion_discount}`;
+                    document.getElementById('overall-discount').textContent = `$${rental.discount_applied}`;
+                    document.getElementById('subtotal').textContent = `$${rental.total_amount}`;
+                    document.getElementById('promo-code').value = '';
+                    document.getElementById('promo-input-container').style.display = 'none';
+                    document.getElementById('promo-success').style.display = 'none';
+                    document.getElementById('promo-error').style.display = 'none';
+
+                    const cancelSession = document.getElementById('cancel-booking-session');
+                    // Reset the cancel button by cloning it
+                    const newCancelSession = cancelSession.cloneNode(true);
+                    cancelSession.replaceWith(newCancelSession);
+                    newCancelSession.addEventListener('click', () => {
+                        console.log(rental.booking_id);
+                        deleteBookingSession(rental.booking_id);
+                    });
+
+                    const promoSection = document.querySelector('.promo-code-section');
+                    promoSection.id = rental.booking_id;
+
+                    const makeInvoiceButton = document.getElementById('make-invoice');
+                    // Reset the make-invoice button by cloning it
+                    const newMakeInvoiceButton = makeInvoiceButton.cloneNode(true);
+                    makeInvoiceButton.replaceWith(newMakeInvoiceButton);
+                    newMakeInvoiceButton.addEventListener('click', async () => {
+                        await makeInvoice(rental.booking_id);
+                        document.getElementById('create-booking-popupOverlay').style.display = 'none';
+                        document.getElementById('invoicesBtn').click();
+                    });
+                }
+            } catch (error) {
+                alert(`Error confirming booking: ${error.message}`);
+                console.error("Error confirming booking:", error);
+            }
+        }
+        // Function to delete booking session
+        async function deleteBookingSession(bookingId) {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/cancel-booking-session/${user_id}/${bookingId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                if (data.message.includes("Booking session expired and schedule updated successfully")) {
+                    document.getElementById('create-booking-popupOverlay').style.display = 'none';
+                }
+            } catch (error) {
+                alert(`Error deleting booking: ${error.message}`);
+                console.error("Error deleting booking:", error);
+            }
+        }
+        // Function to delete booking
+        async function deleteBooking(bookingId) {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/cancel-booking/${user_id}/${bookingId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Reload the upcoming rentals
+                getUpcomingRentals();
+            } catch (error) {
+                alert(`Error deleting booking: ${error.message}`);
+                console.error("Error deleting booking:", error);
+            }
+        }
+        // Function to get promotion codes
+        async function getPromotionCodes() {
+            try {
+                const response = await fetch(`http://localhost:8080/api/v1/promotions`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Get the vehicles array from the response
+                const promotionCodes = data.promotions || [];
+
+                // Get the rental history container element
+                const promotionCodesContainer = document.getElementById('promotion-codes');
+                
+                // If no vehicles are found, show a message
+                if (promotionCodes == null || promotionCodes.length === 0) {
+                    promotionCodesContainer.innerHTML = '<p class="rental-error">No promotion codes found.</p>';
+                    return;
+                }
+
+                // Loop through the vehicles array and display each rental item
+                promotionCodes.forEach(promotion => {
+                    const promotionElement = document.createElement('div');
+                    promotionElement.classList.add('rental-item');
+                    promotionElement.innerHTML = `
+                        <p><strong>Promotion Code:</strong> ${promotion.promo_code}</p>
+                        <p><strong>Promotion Name:</strong> ${promotion.promotion_name}</p>
+                        <p><strong>Discount:</strong> ${promotion.discount_percentage}%</p>
+                        <p><strong>Valid Frome:</strong> ${promotion.valid_from}</p>
+                        <p><strong>Valid To:</strong> ${promotion.valid_to}</p>
+                    `;
+                    promotionCodesContainer.appendChild(promotionElement);
+                });
+            } catch (error) {
+                alert(`Error fetching promotion codes: ${error.message}`);
+                console.error("Error fetching promotion codes:", error);
+            }
+        }
+        // Function to validate the promo code
+        async function validatePromoCode() {
+            const promoCode = document.getElementById('promo-code').value;
+            document.getElementById('promo-success').style.display = 'none';
+            document.getElementById('promo-error').style.display = 'none';
+
+            if (!promoCode) {
+                alert('Please enter a promo code');
+                return;
+            }
+            booking_id = document.querySelector('.promo-code-section').id;
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/add-promotion-code/${user_id}/${booking_id}/${promoCode}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+                var booking = data.booking || {};
+                if (data.message.includes("Promotion code applied successfully")) {
+                    document.getElementById('promo-code').value = ''; 
+                    document.getElementById('total-without-discount-booking').textContent = `$${booking.base_cost}`;
+                    document.getElementById('membership-discount').textContent = `$${booking.membership_discount}`;
+                    document.getElementById('promotion-discount').textContent = `$${booking.promotion_discount}`;
+                    document.getElementById('subtotal').textContent = `$${booking.total_amount}`;
+                    document.getElementById('promo-success').style.display = 'block';
+                    document.getElementById('promo-success-message').textContent = `Promotion code ${promoCode} applied successfully`;
+                    document.querySelector('.promo-code-section').style.display = 'none';
+
+                } else {
+                    document.getElementById('promo-error').style.display = 'block';
+                    document.getElementById('promo-error-message').textContent = data.message;
+                }
+            } catch (error) {
+                alert(`Error validating promo code: ${error.message}`);
+                console.error("Error validating promo code:", error);
+            }
+        }
+        // Function to get invoices
+        async function getInvoices(){
+            try {
+                const response = await fetch(`http://localhost:8081/api/v1/invoice-details/${user_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Get the vehicles array from the response
+                const invoices = data.invoices || [];
+
+                // Get the rental history container element
+                const invoicesContainer = document.getElementById('invoices');
+                
+                // If no vehicles are found, show a message
+                if (invoices == null || invoices.length === 0) {
+                    invoicesContainer.innerHTML = '<p class="rental-error">No invoices found.</p>';
+                    return;
+                }
+
+                // Loop through the vehicles array and display each rental item
+                invoices.forEach(invoice => {
+                    const invoiceElement = document.createElement('div');
+                    invoiceElement.classList.add('rental-item');
+
+                    // Create the invoice HTML with conditional checks
+                    let invoiceHTML = `
+                        <p><strong>Invoice ID:</strong> ${invoice.invoice_id}</p>
+                        <p><strong>Invoice Date:</strong> ${invoice.issue_date}</p>
+                        <p><strong>Total Amount (without discount):</strong> $${invoice.base_cost}</p>
+                    `;
+
+                    // Check if promo code exists and add it above Total Discount
+                    if (invoice.promo_code) {
+                        invoiceHTML += `<p><strong>Promo Code:</strong> ${invoice.promo_code}</p>`;
+                    }
+
+                    // Add Total Discount and Final Amount
+                    invoiceHTML += `
+                        <p><strong>Total Discount:</strong> $${invoice.discount_applied}</p>
+                        <p><strong>Final Amount:</strong> $${invoice.total_amount}</p>
+                        <p><strong>Details:</strong> ${invoice.details}</p>
+                        <p><strong>Status:</strong> ${invoice.status}</p>
+                    `;
+
+                    // Add the invoice content to the invoice element
+                    invoiceElement.innerHTML = invoiceHTML;
+
+                    // Check if the status is 'Pending' and add a "Make Payment" button
+                    if (invoice.status === 'Pending') {
+                        const makePaymentButton = document.createElement('button');
+                        makePaymentButton.textContent = 'Make Payment';
+                        makePaymentButton.id = `make-payment-${invoice.invoice_id}`;
+                        // You can add an event listener here to handle payment action
+                        makePaymentButton.addEventListener('click', () => {
+                            // Show the payment popup
+                            var paymentPopupOverlay = document.getElementById("payment-popupOverlay");
+                            paymentPopupOverlay.style.display = "flex";
+                            document.getElementById('payment-total-wthout-discount').textContent = `$${invoice.base_cost}`;
+                            document.getElementById('payment-overall-discount').textContent = `$${invoice.discount_applied}`;
+                            document.getElementById('payment-subtotal').textContent = `$${invoice.total_amount}`;
+                            sessionStorage.setItem('invoice_id', invoice.invoice_id);
+                        });
+
+                        // Append the button to the invoice element
+                        invoiceElement.appendChild(makePaymentButton);
+                    }
+
+                    // Append the invoice element to the container
+                    invoicesContainer.appendChild(invoiceElement);
+                });
+
+            } catch (error) {
+                alert(`Error fetching invoices: ${error.message}`);
+                console.error("Error fetching invoices:", error);
+            }
+        }
+        // Function to make invoice
+        async function makeInvoice(bookingId) {
+            try {
+                const response = await fetch(`http://localhost:8081/api/v1/create-invoice/${user_id}/${bookingId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+                // Store 
+            } catch (error) {
+                alert(`Error making invoice: ${error.message}`);
+                console.error("Error making invoice:", error);
+            }
+        }
+        // Function to make payment
+        async function makePayment(invoiceId) {
+            const cardNumber = document.getElementById('card-number').value;
+            const cardExpiry = document.getElementById('card-expiry').value;
+            const cardCvv = document.getElementById('card-cvv').value;
+
+            // Validate card number
+            if (cardNumber.length !== 16) {
+                document.getElementById('payment-error').style.display = 'block';
+                document.getElementById('payment-error').textContent = 'Card number must be 16 digits';
+                return { success: false, message: 'Invalid card number' };
+            }
+
+            // Validate expiry date
+            if (!cardExpiry) {
+                document.getElementById('payment-error').style.display = 'block';
+                document.getElementById('payment-error').textContent = 'Expiry date is required';
+                return { success: false, message: 'Expiry date is required' };
+            }
+
+            // Validate CVV
+            if (cardCvv.length !== 3) {
+                document.getElementById('payment-error').style.display = 'block';
+                document.getElementById('payment-error').textContent = 'CVV must be 3 digits';
+                return { success: false, message: 'Invalid CVV' };
+            }
+
+            // Hide the error message
+            document.getElementById('payment-error').style.display = 'none';
+
+            try {
+                const response = await fetch(`http://localhost:8081/api/v1/make-payment/${invoiceId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        card_number: cardNumber,
+                        card_expiry: cardExpiry,
+                        cvv: cardCvv,
+                    }),
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                var billing = data.billing || {};
+
+                if (data.message.includes('Payment successful')) {
+                    document.getElementById('payment-success').style.display = 'block';
+                    document.getElementById('payment-success').textContent = 'Payment successful';
+
+                    setTimeout(() => {
+                        document.getElementById('payment-popupOverlay').style.display = 'none';
+                        document.getElementById('payment-success').style.display = 'none';
+                        document.getElementById('payment-error').style.display = 'none';
+                        document.getElementById('card-number').value = '';
+                        document.getElementById('card-expiry').value = '';
+                        document.getElementById('card-cvv').value = '';
+                        getReceipt(billing.billing_id);
+                        document.getElementById('receipt-popupOverlay').style.display = 'flex';
+                    }, 3000);
+                } else if (data.message.includes('Card not found')) {
+                    document.getElementById('payment-error').style.display = 'block';
+                    document.getElementById('payment-error').textContent = 'Card not found';
+                } else if (data.message.includes('Card expiry does not match')) {
+                    document.getElementById('payment-error').style.display = 'block';
+                    document.getElementById('payment-error').textContent = 'Card expiry does not match';
+                } else if (data.message.includes('CVV does not match')) {
+                    document.getElementById('payment-error').style.display = 'block';
+                    document.getElementById('payment-error').textContent = 'CVV does not match';
+                } else if (data.message.includes('Card expired')) {
+                    document.getElementById('payment-error').style.display = 'block';
+                    document.getElementById('payment-error').textContent = 'Card expired';
+                } else if (data.message.includes('Insufficient balance')) {
+                    document.getElementById('payment-error').style.display = 'block';
+                    document.getElementById('payment-error').textContent = 'Insufficient balance';
+                }
+            } catch (error) {
+                alert(`Error making payment: ${error.message}`);
+                console.error('Error making payment:', error);
+            }
+        }
+        // Get receipt by invoice id
+        async function getReceipt(billingId) {
+            try {
+                const response = await fetch(`http://localhost:8081/api/v1/receipt-details/${billingId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // Parse the response body as JSON
+                const data = await response.json();
+                console.log(data);
+
+                // Check if there is a "message" property and display it
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                // Get the receipt container element
+                var receipt = data.receipt || {};
+                document.getElementById('receipt-id').textContent = receipt.receipt_id;
+                document.getElementById('receipt-billing-id').textContent = receipt.billing_id;
+                document.getElementById('receipt-amount').textContent = receipt.issue_date;
+                document.getElementById('receipt-amount').textContent = `$${receipt.amount}`;
+                document.getElementById('receipt-date').textContent = `${receipt.date}`;
+                document.getElementById('receipt-description').textContent = `${receipt.description}`;
+                document.getElementById('receipt-card').textContent = receipt.card_last_three;
+            } catch (error) {
+                alert(`Error fetching receipt: ${error.message}`);
+                console.error("Error fetching receipt:", error);
+            }
+        }
+        // Get vehicle details by hourly rate
+        async function getVehicleDetails(hourlyRate) {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/vehicle-by-hourly-rate/${hourlyRate}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+                console.log(data);
+
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                const vehicles = data.vehicles || [];
+
+                // Show the booking update overlay
+                document.getElementById('update-booking-popupOverlay').style.display = 'flex';
+                const updateBooking = document.getElementById('update-booking-section');
+                updateBooking.innerHTML = ''; // Clear any existing content
+
+                if (vehicles.length === 0) {
+                    updateBooking.innerHTML = '<p class="rental-error">No vehicles available for this date.</p>';
+                    return;
+                }
+                // Get the booking ID from the session storage
+                const bookingId = sessionStorage.getItem('booking_id');
+                // Loop through the vehicles array and display each rental item
+                vehicles.forEach(rental => {
+                    const rentalElement = document.createElement('div');
+                    rentalElement.classList.add('rental-item');
+                    rentalElement.innerHTML = `
+                        <p><strong>Vehicle ID:</strong> ${rental.vehicle_id}</p>
+                        <p><strong>Schedule Date:</strong> ${rental.date}</p>
+                        <p><strong>Start Time:</strong> ${rental.start_time}</p>
+                        <p><strong>End Time:</strong> ${rental.end_time}</p>
+                        <p><strong>Vehicle Type:</strong> ${rental.type}</p>  
+                        <p><strong>Vehicle Brand:</strong> ${rental.brand}</p>  
+                        <p><strong>Vehicle Model:</strong> ${rental.model}</p>
+                        <p><strong>License Plate:</strong> ${rental.license_plate}</p>
+                        <button id="rental-${rental.schedule_id}" onclick="updateBooking(${bookingId}, ${rental.schedule_id})" class="rental-buttons" >Change Rental</button>
+                    `;
+                    updateBooking.appendChild(rentalElement);
+                });
+            } catch (error) {
+                alert(`Error fetching vehicle details: ${error.message}`);
+                console.error("Error fetching vehicle details:", error);
+            }
+        }
+        // Function to update booking
+        async function updateBooking(bookingId, scheduleId) {
+            try {
+                const response = await fetch(`http://localhost:9000/api/v1/update-booking/${user_id}/${bookingId}/${scheduleId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+                console.log(data);
+
+                if (data.message) {
+                    alert(data.message);
+                }
+
+                if (data.message.includes("Booking updated successfully")) {
+                    document.getElementById('update-booking-popupOverlay').style.display = 'none';
+                    getUpcomingRentals();
+                }
+            } catch (error) {
+                alert(`Error updating booking: ${error.message}`);
+                console.error("Error updating booking:", error);
+            }
+        }
+  </script>
+
+</body>
+</html>
