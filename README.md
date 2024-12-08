@@ -1,4 +1,3 @@
-# electric-carshare-cnad-asg1-s10259930
 # Electric Car Sharing System
 
 This project implements a microservices-based Electric Car Sharing System in Go. It features user management, vehicle reservation, and billing with a focus on scalability, security, and user experience.
