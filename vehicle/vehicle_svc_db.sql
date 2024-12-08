@@ -98,7 +98,7 @@ VALUES
 -- Booking 1: John Doe reserves the Toyota Corolla on 2024-12-04 from 08:00 to 12:00
 INSERT INTO bookings (schedule_id, user_id, status, base_cost, promo_code, promotion_discount, discount_applied, total_amount) 
 VALUES 
-(1, 1, 'Confirmed', 80.00, 'DECEMBERHOLIDAY', 16.00, 16.00, 64.00);
+(1, 1, 'Completed', 80.00, 'DECEMBERHOLIDAY', 16.00, 16.00, 64.00);
 
 
 -- Booking 2: John Doe reserves the Toyota Corolla on 2024-12-10 from 18:00 to 22:00
