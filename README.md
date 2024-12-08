@@ -10,8 +10,7 @@ This project implements a microservices-based Electric Car Sharing System in Go.
 2. [System Features](#system-features)
 3. [Design Considerations and Microservices Architecture](#design-considerations-and-microservices-architecture)
 4. [Database Schema](#database-schema)
-5. [Setup Instructions](#setup-instructions)
-6. [Running the Services](#running-the-services)
+5. [Installation Steps](#installation-steps)
 7. [Conclusion](#conclusion)
 
 
@@ -130,18 +129,45 @@ This schema is designed for modular, scalable data management.
 
 ---
 
-## Setup Instructions
+# Installation Steps
 
-## Installation Steps
-
+## Option 1: Running with Batch File
 1. Clone the repository:
    ```bash
    git clone https://github.com/Sa1ram06/electric-carshare-cnad-asg1-s10259930.git
-2. Navigate to the root folder of the cloned repository.
-3. Run the servers by executing the following command: 
+2. Navigate to each service folder (user, vehicle, promotion, and billing) and copy the SQL files for each service to create the respective databases (user_svc_db, vehicle_svc_db, promotion_svc_db, billing_svc_db).
+3. After copying the SQL files for each service, run the SQL commands in MySQL to create the databases. Ensure the MySQL username is user and the password is password when setting up the connection.
+4. Modify the connection string in each service's Go code to point to your database host. For example:
+    ```bash
+    db, err = sql.Open("mysql", "user:password@tcp(your-database-host:3306)/promotion_svc_db")
+    Replace your-database-host with the appropriate database host and port.
+5. Navigate to the root folder of the cloned repository.
+6. Run the servers by executing the following command: 
     ```bash
     .\run_servers.bat
-4. A series of pop-up windows will appear. Click Allow on all four pop-ups to enable the services to run. This will start all four services required for the application to function.
+7. A series of pop-up windows will appear. Click Allow on all four pop-ups to enable the services to run. This will start all four services required for the application to function.
+8. Navigate to index page, and start a live server. 
+
+## Option 2: Running with Docker
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Sa1ram06/electric-carshare-cnad-asg1-s10259930.git
+2. Navigate to each service folder (user, vehicle, promotion, and billing) and copy the SQL files for each service to create the respective databases (user_svc_db, vehicle_svc_db, promotion_svc_db, billing_svc_db).
+3. After copying the SQL files for each service, run the SQL commands in MySQL to create the databases. Ensure the MySQL username is user and the password is password when setting up the connection.
+4. Modify the connection string in each service's Go code to point to your database host. For example:
+    ```bash
+    db, err = sql.Open("mysql", "user:password@tcp(your-database-host:3306)/promotion_svc_db")
+    Replace your-database-host with the appropriate database host and port.
+5. In the root folder of the cloned repository, run the following command to build the Docker containers:
+    ```bash
+    docker compose build
+6. Run the Docker containers with the following command:
+    ```bash
+   docker compose up -d
+7. Navigate to index page, and start a live server. 
+9. To stop the docker containers, run the following command:
+    ```bash
+    docker compose down 
 ---
 
 ## Conclusion
