@@ -43,7 +43,7 @@ The Electric Car Sharing System aims to provide a seamless platform for car rent
 
 ## Design Considerations
 
-- **Separation of Concerns**: Each service handles a specific domain (User, Vehicle, Billing).
+- **Separation of Concerns**: Each service handles a specific domain (User, Vehicle, Billing, Promotion).
 - **Scalability**: Designed to handle increasing users and data load with minimal impact.
 - **Security**: Implemented authentication, encrypted storage, and secure API communication.
 - **Performance**: Optimized database queries and caching mechanisms for fast response times.
